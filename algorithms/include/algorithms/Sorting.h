@@ -21,6 +21,7 @@ public:
 	Sort();
 	~Sort();
 
+	//utility functions
 	template<class T>
 	static void print(T* arr, int n)
 	{
@@ -31,6 +32,7 @@ public:
 		std::cout << std::endl;
 	}
 
+
 	template<class T>
 	static void print(std::vector<T> &arr)
 	{
@@ -39,6 +41,14 @@ public:
 			std::cout << " " << arr[i];
 		}
 		std::cout << std::endl;
+	}
+
+	template<class T>
+	static void swap(T &a, T &b)
+	{
+		T c(a);
+		a = b;
+		b = c;
 	}
 	/*
 	 *	Insertion sort algorithm.
@@ -103,7 +113,7 @@ public:
 				}
 			}
 
-			std::swap(&arr[min_idx], &arr[i]);
+			Sort::swap(&arr[min_idx], &arr[i]);
 		}
 	}
 
@@ -122,11 +132,57 @@ public:
 					min_idx = j;
 				}
 			}
-			T tmp = arr[i];
-			arr[i] = arr[min_idx];
-			arr[min_idx] = tmp;
+			Sort::swap(&arr[i], &arr[min_idx]);
 		}
 	}
+
+
+	template<class T>
+	static void bubble(T* arr, int n)
+	{
+
+	}
+
+	/*
+	 * Bubble Sort Optimized:
+	 * time Complexity: O(n^2)
+	 * space complexity: O(1)
+	 */
+	template<class T>
+	static void bubbleOptimized(T* arr, int n)
+	{
+		bool notSroted = true;
+		while(notSroted)
+		{
+			notSroted = false;
+			for(int i = 0; i < n-1; i++)
+			{
+				if(arr[i] < arr[i+1])
+				{
+					Sort::swap(&arr[i], &arr[i+1]);
+					notSroted = true;
+				}
+			}
+		}
+	}
+	template<class T>
+	static void bubleOptimized(std::vector<T> &arr)
+	{
+		bool notSorted = true;
+		while(notSorted)
+		{
+			notSorted = false;
+			for(int i = 0; i < arr.size() - 1; i++)
+			{
+				if(arr[i] > arr[i+1])
+				{
+					Sort::swap(&arr[i], &arr[i+1]);
+					notSorted = true;
+				}
+			}
+		}
+	}
+
 };
 }
 
