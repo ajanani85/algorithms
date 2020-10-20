@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/ubuntu/eclipse_ws/linked_list/build/cmake.debug.linux.x86_64",
+  "command": "/usr/bin/c++    -g   -o CMakeFiles/linked_list.dir/linked_list.cpp.o -c /home/ubuntu/eclipse_ws/linked_list/linked_list.cpp",
+  "file": "/home/ubuntu/eclipse_ws/linked_list/linked_list.cpp"
+}
+]

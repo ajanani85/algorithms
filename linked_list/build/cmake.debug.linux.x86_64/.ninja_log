@@ -1,0 +1,18 @@
+# ninja log v5
+0	241	1603115962	CMakeFiles/linked_list.dir/linked_list.cpp.o	4ad79aea1c84a0c2
+242	294	1603115962	linked_list	f3d3900a27bb4395
+1	231	1603115981	CMakeFiles/linked_list.dir/linked_list.cpp.o	4ad79aea1c84a0c2
+231	282	1603115981	linked_list	f3d3900a27bb4395
+0	176	1603116269	CMakeFiles/linked_list.dir/linked_list.cpp.o	4ad79aea1c84a0c2
+176	228	1603116269	linked_list	f3d3900a27bb4395
+1	219	1603116341	CMakeFiles/linked_list.dir/linked_list.cpp.o	4ad79aea1c84a0c2
+219	292	1603116341	linked_list	f3d3900a27bb4395
+1	183	1603116616	CMakeFiles/linked_list.dir/linked_list.cpp.o	4ad79aea1c84a0c2
+183	236	1603116616	linked_list	f3d3900a27bb4395
+0	4	0	clean	a7c70eacb11a5051
+1	194	1603116680	CMakeFiles/linked_list.dir/linked_list.cpp.o	4ad79aea1c84a0c2
+194	247	1603116680	linked_list	f3d3900a27bb4395
+1	182	1603117323	CMakeFiles/linked_list.dir/linked_list.cpp.o	4ad79aea1c84a0c2
+182	264	1603117323	linked_list	f3d3900a27bb4395
+1	185	1603119712	CMakeFiles/linked_list.dir/linked_list.cpp.o	4ad79aea1c84a0c2
+185	240	1603119712	linked_list	f3d3900a27bb4395

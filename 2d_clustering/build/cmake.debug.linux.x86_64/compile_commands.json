@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/ubuntu/eclipse_ws/2d_clustering/build/cmake.debug.linux.x86_64",
+  "command": "/usr/bin/c++    -g   -o CMakeFiles/2d_clustering.dir/2d_clustering.cpp.o -c /home/ubuntu/eclipse_ws/2d_clustering/2d_clustering.cpp",
+  "file": "/home/ubuntu/eclipse_ws/2d_clustering/2d_clustering.cpp"
+}
+]

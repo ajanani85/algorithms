@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/ubuntu/eclipse_ws/path_finding/build/cmake.debug.linux.x86_64",
+  "command": "/usr/bin/c++    -g   -o CMakeFiles/path_finding.dir/path_finding.cpp.o -c /home/ubuntu/eclipse_ws/path_finding/path_finding.cpp",
+  "file": "/home/ubuntu/eclipse_ws/path_finding/path_finding.cpp"
+}
+]
