@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 struct LinkedList
@@ -46,14 +47,33 @@ void insert(LinkedList **head, int data)
 	}
 
 	LinkedList *current = *head;
-	while(current->next != NULL || current->data < data)
+	LinkedList *prev = current;
+	while(current->data < data)
 	{
+		prev = current;
 		current = current->next;
+		if(current == NULL)
+		{
+			break;
+		}
 	}
 
 	LinkedList *item = new LinkedList(data);
-	item->next = current->next;
-	current->next = item;
+	//normal case
+	if(prev != current)
+	{
+		prev->next = item;
+		item->next = current;
+		(*head)->size +=1;
+		return;
+	}
+
+	//where the place is the head (when prev = current)
+	LinkedList *tmp = new LinkedList(*current);
+	item->next = tmp;
+	size_t size = (*head)->size;
+	*head = item;
+	(*head)->size = ++size;
 }
 
 /**
@@ -117,12 +137,12 @@ void print(LinkedList *head)
 
 int main(int argc, char **argv) {
 
-
+	vector<int> A = {9, 3, 5, 7, 1, -10, 2, 4, 6, 8};
 	LinkedList *head = NULL;
 
-	for(int i = 1; i <= 10; i++)
+	for(int i = 0; i < A.size(); i++)
 	{
-		insert(&head, i * 100 / i);
+		insert(&head, A[i]);
 	}
 
 	print(head);
