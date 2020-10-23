@@ -28,6 +28,73 @@ void reverse(LinkedList **head)
 {
 }
 
+void deleteAt(LinkedList **head, int index)
+{
+	if(*head == NULL)
+	{
+		return;
+	}
+	LinkedList* current = *head;
+	LinkedList *prev = *head;
+	int cnt = 0;
+	while(current != NULL && cnt < index)
+	{
+		prev = current;
+		current = current->next;
+		cnt++;
+	}
+
+	if(current == NULL)
+	{
+		return;
+	}
+
+	if(current == prev)
+	{
+		*head = (*head)->next;
+		return;
+	}
+
+	prev->next = current->next;
+}
+
+void deleteWithVal(LinkedList **head, int value)
+{
+	if(*head == NULL)
+	{
+		return;
+	}
+
+	LinkedList* current = *head;
+	LinkedList *prev = *head;
+	while(current != NULL)
+	{
+		if(current->data == value)
+		{
+			//when at the beginning
+			if(prev == current)
+			{
+				*head = current->next;
+
+			}
+			else
+			{
+				//general case
+				prev->next = current->next;
+				//increment the cursor
+				current = prev->next;
+				continue;
+			}
+
+		}
+		prev = current;
+		current = current->next;
+
+
+
+	}
+}
+
 /**
  * insert an item at the given index
  */
@@ -69,11 +136,9 @@ void insert(LinkedList **head, int data)
 	}
 
 	//where the place is the head (when prev = current)
-	LinkedList *tmp = new LinkedList(*current);
+	LinkedList *tmp = new LinkedList(*head);
 	item->next = tmp;
-	size_t size = (*head)->size;
 	*head = item;
-	(*head)->size = ++size;
 }
 
 /**
@@ -137,7 +202,7 @@ void print(LinkedList *head)
 
 int main(int argc, char **argv) {
 
-	vector<int> A = {9, 3, 5, 7, 1, -10, 2, 4, 6, 8};
+	vector<int> A = {9, 3, 5, 7, 9, -10, 2, 9, 9, 8};
 	LinkedList *head = NULL;
 
 	for(int i = 0; i < A.size(); i++)
@@ -145,7 +210,9 @@ int main(int argc, char **argv) {
 		insert(&head, A[i]);
 	}
 
-	print(head);
 
+	deleteAt(&head, 1);
+
+	print(head);
 	return 0;
 }
