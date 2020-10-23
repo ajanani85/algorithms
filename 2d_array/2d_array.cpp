@@ -131,7 +131,7 @@ void cluster(const std::vector<std::vector<int>> &src, std::vector<std::vector<i
 		int kernel_type = 1)
 {
 	printArr2d(src);
-
+	cout << "----------" << endl;
 	int rows = src.size();
 	int cols = src[0].size();
 
@@ -268,12 +268,16 @@ void cluster(const std::vector<std::vector<int>> &src, std::vector<std::vector<i
 
 
 int main(int argc, char **argv) {
-	int **arr = NULL;
-	int row = 4, col = 4, default_val = 0;
+	/*int **arr = NULL;
+	int row = 4, col = 4, default_val = 0;*/
 
-	/*std::vector<std::vector<int>> arr = {{1, 1, 0, 0, 1, 0, 0, 1},
+	std::vector<std::vector<int>> arr = {{1, 1, 0, 0, 1, 0, 0, 1},
 										 {1, 1, 0, 0, 1, 0, 0, 1},
-										 {0, 0, 0, 0, 1, 1, 1, 1},
+										 {0, 0, 1, 0, 0, 1, 1, 1},
+										 {0, 0, 1, 0, 0, 1, 1, 1},
+										 {0, 0, 1, 0, 0, 1, 1, 1},
+										 {1, 1, 0, 0, 1, 0, 0, 1},
+										 {1, 1, 0, 0, 1, 0, 0, 1},
 										 {0, 1, 0, 1, 0, 0, 0, 0}};
 	std::vector<std::vector<int>> arr_labeled;
 	arr_labeled.resize(arr.size());
@@ -282,8 +286,9 @@ int main(int argc, char **argv) {
 		a.resize(arr[0].size());
 	}
 
-	cluster(arr, arr_labeled);*/
-	create(&arr, row, col, default_val);
+	cluster(arr, arr_labeled, 1);
+	//printArr2d(arr_labeled);
+	/*create(&arr, row, col, default_val);
 
 	std::string map_str="1000100010001111";
 
@@ -291,7 +296,7 @@ int main(int argc, char **argv) {
 
 	pathfinder(arr, row, col, 0, (row*col)-1);
 
-	print(arr, row, col);
+	print(arr, row, col);*/
 
 	return 0;
 }

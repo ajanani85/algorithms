@@ -26,6 +26,34 @@ struct LinkedList
  */
 void reverse(LinkedList **head)
 {
+	if(*head == NULL)
+	{
+		return;
+	}
+
+	LinkedList *current = *head;
+	LinkedList *prev = NULL, *next = NULL;
+	/*
+	 * 1 2 3 4
+	 * 2 1 3 4
+	 * 3 2 1 4
+	 * 4 3 2 1
+	 */
+
+	while(current != NULL)
+	{
+		//store the next position
+		next = current->next;
+
+		//reverse the order
+		current->next = prev;
+
+		//update the pointers
+		prev = current;
+		current = next;
+	}
+
+	*head = prev;
 }
 
 void deleteAt(LinkedList **head, int index)
@@ -100,6 +128,36 @@ void deleteWithVal(LinkedList **head, int value)
  */
 void insert(LinkedList **head, int data, int index)
 {
+	if(*head == NULL)
+	{
+		return;
+	}
+
+	LinkedList *current = *head;
+	LinkedList *prev = current;
+	int cnt = 0;
+	while(cnt < index && current != NULL)
+	{
+		prev= current;
+		current=current->next;
+		cnt++;
+	}
+	if(current == NULL)
+	{
+		return;
+	}
+	LinkedList* item = new LinkedList(data);
+	//index is zero
+	if(current == prev)
+	{
+		LinkedList* tmp = new LinkedList(*head);
+		item->next = tmp;
+		*head = item;
+		return;
+	}
+
+	prev->next = item;
+	item->next = current;
 }
 
 /**
@@ -210,8 +268,9 @@ int main(int argc, char **argv) {
 		insert(&head, A[i]);
 	}
 
+	insert(&head, 200);
 
-	deleteAt(&head, 1);
+	reverse(&head);
 
 	print(head);
 	return 0;
