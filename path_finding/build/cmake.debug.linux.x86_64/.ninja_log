@@ -1,6 +1,0 @@
-# ninja log v5
-0	256	1603115964	CMakeFiles/path_finding.dir/path_finding.cpp.o	3f18267a4506cc6f
-256	355	1603115964	path_finding	f0f1b0bf64ed3582
-0	2	0	clean	a7c70eacb11a5051
-1	183	1603116680	CMakeFiles/path_finding.dir/path_finding.cpp.o	3f18267a4506cc6f
-183	233	1603116680	path_finding	f0f1b0bf64ed3582

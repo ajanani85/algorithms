@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/ubuntu/eclipse_ws/algorithms/linked_list/build/default",
-  "command": "/usr/bin/c++    -O3 -DNDEBUG   -o CMakeFiles/linked_list.dir/linked_list.cpp.o -c /home/ubuntu/eclipse_ws/algorithms/linked_list/linked_list.cpp",
-  "file": "/home/ubuntu/eclipse_ws/algorithms/linked_list/linked_list.cpp"
-}
-]

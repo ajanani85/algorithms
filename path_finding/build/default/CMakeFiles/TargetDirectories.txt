@@ -1,3 +1,0 @@
-/home/ubuntu/eclipse_ws/algorithms/path_finding/build/default/CMakeFiles/rebuild_cache.dir
-/home/ubuntu/eclipse_ws/algorithms/path_finding/build/default/CMakeFiles/path_finding.dir
-/home/ubuntu/eclipse_ws/algorithms/path_finding/build/default/CMakeFiles/edit_cache.dir

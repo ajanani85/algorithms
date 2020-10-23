@@ -1,3 +1,0 @@
-/home/ubuntu/eclipse_ws/2d_clustering/build/default/CMakeFiles/rebuild_cache.dir
-/home/ubuntu/eclipse_ws/2d_clustering/build/default/CMakeFiles/2d_clustering.dir
-/home/ubuntu/eclipse_ws/2d_clustering/build/default/CMakeFiles/edit_cache.dir

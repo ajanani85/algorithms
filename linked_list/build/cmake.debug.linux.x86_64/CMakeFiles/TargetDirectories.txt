@@ -1,3 +1,0 @@
-/home/ubuntu/eclipse_ws/linked_list/build/cmake.debug.linux.x86_64/CMakeFiles/rebuild_cache.dir
-/home/ubuntu/eclipse_ws/linked_list/build/cmake.debug.linux.x86_64/CMakeFiles/linked_list.dir
-/home/ubuntu/eclipse_ws/linked_list/build/cmake.debug.linux.x86_64/CMakeFiles/edit_cache.dir

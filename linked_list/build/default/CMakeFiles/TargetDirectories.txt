@@ -1,3 +1,0 @@
-/home/ubuntu/eclipse_ws/algorithms/linked_list/build/default/CMakeFiles/rebuild_cache.dir
-/home/ubuntu/eclipse_ws/algorithms/linked_list/build/default/CMakeFiles/linked_list.dir
-/home/ubuntu/eclipse_ws/algorithms/linked_list/build/default/CMakeFiles/edit_cache.dir
