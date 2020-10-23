@@ -6,6 +6,15 @@
 #include <algorithm>
 using namespace std;
 
+void create(int ***arr, int row, int col)
+{
+	(*arr) = new int*[row];
+	for(int i = 0; i < row; i++)
+	{
+		(*arr)[i] = new int[col];
+	}
+}
+
 void printArr2d(const std::vector<std::vector<int>> &src)
 {
 
@@ -158,7 +167,9 @@ void cluster(const std::vector<std::vector<int>> &src, std::vector<std::vector<i
 
 
 int main(int argc, char **argv) {
-	std::vector<std::vector<int>> arr = {{1, 1, 0, 0, 1, 0, 0, 1},
+	int **arr = NULL;
+	int row = 4, col = 4;
+	/*std::vector<std::vector<int>> arr = {{1, 1, 0, 0, 1, 0, 0, 1},
 										 {1, 1, 0, 0, 1, 0, 0, 1},
 										 {0, 0, 0, 0, 1, 1, 1, 1},
 										 {0, 1, 0, 1, 0, 0, 0, 0}};
@@ -169,6 +180,7 @@ int main(int argc, char **argv) {
 		a.resize(arr[0].size());
 	}
 
-	cluster(arr, arr_labeled);
+	cluster(arr, arr_labeled);*/
+	create(&arr, row, col);
 	return 0;
 }
