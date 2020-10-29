@@ -5,6 +5,15 @@
 #include <unordered_map>
 using namespace std;
 
+void print(const vector<int> &arr)
+{
+	for(int i = 0; i < arr.size(); i++)
+	{
+		cout << arr[i] << " ";
+	}
+	cout << endl;
+}
+
 /*
  * Reverse a string without affecting special characters
  * Given a string, that contains special character together with alphabets (‘a’ to ‘z’ and ‘A’ to ‘Z’),
@@ -136,6 +145,13 @@ void findDuplicates(std::vector<int> &arr)
  */
 void removeDuplicates(std::vector<int> &arr)
 {
+	//approach 1
+	int N = arr.size();
+	for(int i = 0; i < N; i++)
+	{
+	}
+
+	//approach 2
 	unordered_set<int> set;
 
 	int idx = -1;
@@ -231,9 +247,25 @@ void findPairWithSum(const std::vector<int> &arr, int sum)
 	}
 }
 
+
+/*
+ * reverse an array in place
+ * Example:
+ * input: {1,2,3,4,5}
+ * output: {5,4,3,2,1}
+ */
+void reverse(std::vector<int> &arr)
+{
+	for(int i = 0; i < arr.size() / 2; i++)
+	{
+		std::swap(arr[i], arr[arr.size() - i - 1]);
+	}
+}
+
 int main(int argc, char **argv) {
 
-	std::vector<int> arr = {1, 0, 2, 1, -2, 4, 1, -2};
-	removeDuplicates(arr);
+	std::vector<int> arr = {1,2,3,4,5,6,7,8,9,10};
+	reverse(arr);
+	print(arr);
 	return 0;
 }
