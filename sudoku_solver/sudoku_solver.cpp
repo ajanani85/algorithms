@@ -4,12 +4,13 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <opencv2/ml/ml.hpp>
 
 using namespace std;
 
 int loadSudokuFromStr(int ***sudoku, const std::string &src);
 void printSudoku(int **sudoku);
-int solve(int ***sudoku);
+bool solve(int ***sudoku, int row, int col);
 int whichSquare(int id);
 int updateTable(int ***sudoku, std::unordered_map<int, std::unordered_set<int>> &rows_missing,
 		std::unordered_map<int, std::unordered_set<int>> &cols_missing,
@@ -161,47 +162,87 @@ int whichSquare(int id)
 	return -1;
 }
 
-int solve(int ***sudoku)
+bool isPossible(int **sudoku, int r, int c, int n)
 {
-	if(sudoku == NULL)
+	//check rows
+	for(int i = 0; i < 9; i++)
 	{
-		return -1;
+		if(sudoku[r][i] == n)
+		{
+			return false;
+		}
 	}
 
-	std::unordered_map<int, std::unordered_set<int>> rows_missing, cols_missing, squares_missing;
-
-
-	int numberOfZeros = 1;
-	while(numberOfZeros > 0)
+	//check cols
+	for(int i = 0; i < 9; i++)
 	{
-
-		numberOfZeros = updateTable(sudoku, rows_missing, cols_missing, squares_missing);
-
-		//print(rows_missing, "missings in rows");
-
-		for(int r = 0; r < 9; r++)
+		if(sudoku[i][c] == n)
 		{
-			for(int c = 0; c < 9; c++)
+			return false;
+		}
+	}
+
+
+	//check squares
+	int r_s = r / 3;
+	int c_s = c / 3;
+	int r_hbound = ((r_s + 1)*3)-1;
+	int r_lbound = r_s * 3;
+	int c_hbound = ((c_s + 1)*3)-1;
+	int c_lbound = c_s * 3;
+	//printf("at [%d %d] square idx [%d, %d], r_bound = [%d,%d] c_bound = [%d, %d]\n", r, c, r_s, c_s, r_lbound, r_hbound, c_lbound, c_hbound);
+	for(int i = r_lbound; i <= r_hbound; i++)
+	{
+		for(int j = c_s * 3; j <= ((c_s + 1)*3)-1; j++)
+		{
+			if(sudoku[i][j] == n)
 			{
-				if((*sudoku)[r][c] != 0)
-				{
-					continue;
-				}
-				int idx = r * 9 + c;
-
-				unordered_set<int> tmp_set;
-				tmp_set = findCommon(rows_missing[r], cols_missing[c]);
-				tmp_set = findCommon(tmp_set, squares_missing[whichSquare(idx)]);
-
-				if(tmp_set.size() == 1)
-				{
-					(*sudoku)[r][c] = *(tmp_set.begin());
-					//cout << (*sudoku)[r][c] << " at " << r << " and " << c << endl;
-				}
+				return false;
 			}
 		}
 	}
-	return 0;
+
+	return true;
+}
+
+bool solve(int ***sudoku, int row, int col)
+{
+	//printf("checking for %d and %d\n", row, col);
+	if(sudoku == NULL)
+	{
+		return false;
+	}
+
+	if(row == 8 && col == 9)
+	{
+		return true;
+	}
+
+	if(col == 9)
+	{
+		row++;
+		col = 0;
+	}
+
+	if((*sudoku)[row][col] != 0)
+	{
+		return solve(sudoku, row, col+1);
+	}
+
+	for(int i = 1; i < 10; i++)
+	{
+		if(isPossible(*sudoku, row, col, i))
+		{
+			(*sudoku)[row][col] = i;
+			if(solve(sudoku, row, col+1))
+			{
+				return true;
+			}
+		}
+		(*sudoku)[row][col] = 0;
+	}
+
+	return false;
 }
 
 int loadSudokuFromStr(int ***sudoku, const std::string &src)
@@ -257,6 +298,8 @@ void printSudoku(int **sudoku)
 
 int main(int argc, char **argv) {
 
+
+
 	std::vector<std::string> sudokus;
 	std::ifstream file("/home/ubuntu/eclipse_ws/algorithms/sudoku_solver/test/sudoku.txt");
 	if(file.is_open())
@@ -276,7 +319,7 @@ int main(int argc, char **argv) {
 
 		printSudoku(sudoku);
 
-		solve(&sudoku);
+		solve(&sudoku, 0, 0);
 
 		printSudoku(sudoku);
 	}
