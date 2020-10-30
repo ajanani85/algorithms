@@ -145,12 +145,6 @@ void findDuplicates(std::vector<int> &arr)
  */
 void removeDuplicates(std::vector<int> &arr)
 {
-	//approach 1
-	int N = arr.size();
-	for(int i = 0; i < N; i++)
-	{
-	}
-
 	//approach 2
 	unordered_set<int> set;
 
