@@ -299,6 +299,7 @@ void printSudoku(int **sudoku)
 int main(int argc, char **argv) {
 
 
+	cv::Mat img_raw;
 
 	std::vector<std::string> sudokus;
 	std::ifstream file("/home/ubuntu/eclipse_ws/algorithms/sudoku_solver/test/sudoku.txt");
