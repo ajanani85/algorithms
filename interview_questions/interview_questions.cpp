@@ -3,6 +3,12 @@
 #include <unordered_set>
 #include <algorithm>
 #include <unordered_map>
+#include <fstream>
+#include <string>
+#include <sstream>
+#include <list>
+#include <set>
+#include <math.h>
 using namespace std;
 
 void print(const vector<int> &arr)
@@ -256,10 +262,100 @@ void reverse(std::vector<int> &arr)
 	}
 }
 
+void findAllPrimeFactors(int n)
+{
+	std::list<uint64_t> result;
+	std::set<uint64_t> list;
+	 while (n%2 == 0){
+	      cout<<"2\t";
+	      list.insert(2);
+	      n = n/2;
+	   }
+	   for (uint64_t i = 3; i <= sqrt(n); i = i+2){
+	      while (n%i == 0){
+	         cout<<i<<"\t";
+	         list.insert(i);
+	         n = n/i;
+	      }
+	   }
+	   if (n > 2)
+	   cout<<n<<"\t";
+	   list.insert(n);
+
+	   for(std::set<uint64_t>::reverse_iterator rit = list.rbegin(); rit != list.rend(); ++rit)
+	   {
+		   result.push_back(*rit);
+	   }
+
+}
+
+bool is_prime(uint64_t n)
+{
+	if (n <= 1)
+	{
+		return false;
+
+	}
+  // Check from 2 to n-1
+  for (uint64_t i = 2; i < n; i++)
+  {
+	  if (n % i == 0)
+	  {
+		  return false;
+	  }
+  }
+  return true;
+}
+
 int main(int argc, char **argv) {
 
-	std::vector<int> arr = {1,2,3,4,5,6,7,8,9,10};
-	reverse(arr);
-	print(arr);
+	std::vector<char> data_;
+	std::ifstream infile("test.txt");
+
+	//get length of file
+	infile.seekg(0, std::ios::end);
+	size_t length = infile.tellg();
+	infile.seekg(0, std::ios::beg);
+
+	data_.resize(length);
+	char c;
+	int cnt = 0;
+	while (infile.get(c))
+	{
+		data_[cnt] = c;
+		cnt++;
+	}
+
+	for(int i = data_.size() - 1; i >= data_.size() - 5; i--)
+	{
+		cout << data_[i] << " " << endl;
+	}
+
+	int sn_ = 3;
+	int pk_ = 5;
+	int sk_ = 15;
+
+	std::ofstream out_file("letter.data");
+	for(int val : data_)
+	{
+		uint64_t result = val;
+		for(int j = 0; j < sk_ - 1; j++)
+		{
+			result *= val;
+		}
+
+		result %= sn_;
+		out_file << result;
+	}
+	out_file.close();
+
+	out_file.open("key.pub");
+	out_file << "pk_" << "\n" << pk_;
+	out_file.close();
+
+	out_file.open("key.prv");
+	out_file << "sk_" << "\n" << sk_;
+	out_file.close();
+
 	return 0;
 }
