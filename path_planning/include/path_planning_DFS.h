@@ -8,8 +8,16 @@
 #ifndef INCLUDE_PATH_PLANNING_DFS_H_
 #define INCLUDE_PATH_PLANNING_DFS_H_
 
-#include <path_planning.h>
+#include "path_planning_base.h"
 
+class PathPlanningDFS : public PathPlanningBase
+{
+public:
+	PathPlanningDFS();
+private:
+	~PathPlanningDFS();
+
+};
 
 
 #endif /* INCLUDE_PATH_PLANNING_DFS_H_ */
