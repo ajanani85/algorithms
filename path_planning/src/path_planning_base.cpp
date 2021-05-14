@@ -69,28 +69,37 @@ int PathPlanningBase::loadData(const std::string &file_location)
 	grid_.rows = -1;
 	grid_.cols = -1;
 	grid_.data_.resize(0);
+	bool firstRound = true;
 	while (infile)
 	{
-		std::string s;
-		if (!getline( infile, s ))
+		std::string line;
+		if (!getline( infile, line ))
 		{
 			break;
 		}
 
 		grid_.rows++;
 
-		std::istringstream ss( s );
+		std::istringstream ss( line );
 		while (ss)
 		{
-			std::string s;
-			if (!getline( ss, s, ',' ))
+			std::string c;
+			if (!getline( ss, c, ',' ))
 			{
 				break;
 			}
-			grid_.cols++;
-			grid_.data_.push_back(std::stoi(s));
+			if(firstRound)
+			{
+				grid_.cols++;
+			}
+			grid_.data_.push_back(std::stoi(c));
 		}
+		firstRound = false;
 
+	}
+
+	if(grid_.rows != -1 && grid_.cols != -1)
+	{
 		return 0;
 	}
 	return -1;

@@ -14,8 +14,9 @@ class PathPlanningDFS : public PathPlanningBase
 {
 public:
 	PathPlanningDFS();
-private:
 	~PathPlanningDFS();
+
+private:
 
 };
 

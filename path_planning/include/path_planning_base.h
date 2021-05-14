@@ -46,13 +46,13 @@ public:
 
 	virtual ~PathPlanningBase() = 0;
 
-protected:
-
 	int loadData(const std::string &file_location);
 
 	void print(const std::string &msg);
 
 	Grid grid_;
+
+protected:
 
 private:
 };
