@@ -66,8 +66,8 @@ int PathPlanningBase::loadData(const std::string &file_location)
 {
 	std::ifstream infile(file_location);
 
-	grid_.rows = -1;
-	grid_.cols = -1;
+	grid_.rows = 0;
+	grid_.cols = 0;
 	grid_.data_.resize(0);
 	bool firstRound = true;
 	while (infile)
@@ -111,4 +111,9 @@ void PathPlanningBase::print(const std::string &msg)
 	std::string data_str;
 	grid_.asString(data_str);
 	printf("%s", data_str.c_str());
+}
+
+void PathPlanningBase::getAllPaths(std::vector<std::queue<int>> &paths)
+{
+	printf("Implement %s \n", __func__);
 }

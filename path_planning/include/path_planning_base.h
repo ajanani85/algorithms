@@ -52,6 +52,8 @@ public:
 
 	Grid grid_;
 
+	virtual void getAllPaths(std::vector<std::queue<int>> &paths) = 0;
+
 protected:
 
 private:

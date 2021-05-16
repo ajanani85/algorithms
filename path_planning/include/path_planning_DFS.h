@@ -16,6 +16,8 @@ public:
 	PathPlanningDFS();
 	~PathPlanningDFS();
 
+	void getAllPaths(std::vector<std::queue<int>> &paths);
+
 private:
 
 };

@@ -14,5 +14,8 @@ int main(int argc, char **argv)
 	}
 
 	path_planner_->print("");
+
+	std::vector<std::queue<int>> paths;
+	path_planner_->getAllPaths(paths);
 	return 0;
 }

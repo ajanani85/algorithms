@@ -14,3 +14,8 @@ PathPlanningDFS::PathPlanningDFS()
 PathPlanningDFS::~PathPlanningDFS()
 {
 }
+
+void PathPlanningDFS::getAllPaths(std::vector<std::queue<int>> &paths)
+{
+
+}
