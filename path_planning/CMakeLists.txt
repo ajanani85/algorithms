@@ -9,4 +9,4 @@ include_directories(include)
 
 add_executable(path_planning src/path_planning.cpp
 							 src/path_planning_base.cpp
-							 src/path_planning_DFS.cpp)
+							 src/path_planning_BFS.cpp)

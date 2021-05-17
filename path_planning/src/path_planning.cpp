@@ -1,12 +1,12 @@
 #include <iostream>
-#include "path_planning_DFS.h"
 #include <memory>
+#include "path_planning_BFS.h"
 
-std::shared_ptr<PathPlanningDFS> path_planner_;
+std::shared_ptr<PathPlanningBFS> path_planner_;
 
 int main(int argc, char **argv)
 {
-	path_planner_ = std::make_shared<PathPlanningDFS>();
+	path_planner_ = std::make_shared<PathPlanningBFS>();
 	if(path_planner_->loadData("test/test_data_1.txt") < 0)
 	{
 		std::cerr << "error reading file" << std::endl;
