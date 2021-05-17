@@ -31,7 +31,8 @@ void Grid::setup(int row, int col)
 
 int Grid::getGlobalIndex(int r, int c)
 {
-	return r*cols + c;
+	int res = r*cols + c;
+	return res;
 }
 
 std::pair<int,int> Grid::getRowCol(int g_idx)
@@ -118,7 +119,37 @@ void PathPlanningBase::print(const std::string &msg)
 	printf("%s", data_str.c_str());
 }
 
-void PathPlanningBase::getAllPaths(std::vector<std::queue<int>> &paths)
+void PathPlanningBase::print(std::vector<std::vector<int>> &paths)
+{
+	printf("Found %d paths\n", (int)paths.size());
+	for(int i = 0; i < paths.size(); i++)
+	{
+		std::string path_str = "path " + std::to_string(i) + ": ";
+		for(int p = 0; p < paths[i].size(); i++)
+		{
+			path_str += std::to_string(paths[i][p]);
+			if( p < paths[i].size() - 1)
+			{
+				path_str += " -> ";
+			}
+		}
+		printf("%s\n", path_str.c_str());
+	}
+}
+
+std::pair<int,int> PathPlanningBase::getBoundaries(int idx, int &row_low, int &row_high, int &col_low, int &col_high)
+{
+	//find the boundaries
+	auto start_cell = grid_.getRowCol(idx);
+	row_high = std::min(start_cell.first + 1, grid_.rows - 1);
+	row_low = std::max(start_cell.first - 1, 0);
+	col_high = std::min(start_cell.second + 1, grid_.cols - 1);
+	col_low = std::max(start_cell.second - 1, 0);
+
+	return start_cell;
+}
+
+void PathPlanningBase::getAllPaths(std::vector<std::vector<int>> &paths, int start, int end)
 {
 	printf("Implement %s \n", __func__);
 }

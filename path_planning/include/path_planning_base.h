@@ -52,9 +52,13 @@ public:
 
 	void print(const std::string &msg);
 
+	void print(std::vector<std::vector<int>> &paths);
+
 	Grid grid_;
 
-	virtual void getAllPaths(std::vector<std::queue<int>> &paths) = 0;
+	virtual void getAllPaths(std::vector<std::vector<int>> &paths, int start, int end) = 0;
+
+	std::pair<int,int> getBoundaries(int idx, int &row_low, int &row_high, int &col_low, int &col_high);
 
 protected:
 

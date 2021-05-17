@@ -17,11 +17,11 @@ public:
 
 	~PathPlanningDFS();
 
-	void getAllPaths(std::vector<std::queue<int>> &paths, int start, int end);
+	void getAllPaths(std::vector<std::vector<int>> &paths, int start, int end);
 
 private:
 
-	int dfs(std::queue<int> &path, std::unordered_set<int> &visited, int idx);
+	void dfs(std::vector<int> &path, std::unordered_set<int> &visited, int idx, int end);
 };
 
 
