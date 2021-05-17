@@ -23,6 +23,8 @@ struct Grid
 
 	Grid();
 
+	int size();
+
 	void setup(int row, int col);
 
 	int getGlobalIndex(int r, int c);

@@ -17,6 +17,11 @@ Grid::Grid()
 	setup(10, 10);
 }
 
+int Grid::size()
+{
+	return rows * cols;
+}
+
 void Grid::setup(int row, int col)
 {
 	rows = row;
