@@ -20,8 +20,7 @@ public:
 	void getAllPaths(std::vector<std::vector<int>> &paths, int start, int end);
 
 private:
-
-	void bfs(std::vector<int> &path, std::unordered_set<int> &visited, int idx, int end);
+	bool isVisited(const std::vector<int> &path, int key);
 };
 
 

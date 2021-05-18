@@ -125,15 +125,20 @@ void PathPlanningBase::print(std::vector<std::vector<int>> &paths)
 	for(int i = 0; i < paths.size(); i++)
 	{
 		std::string path_str = "path " + std::to_string(i) + ": ";
-		for(int p = 0; p < paths[i].size(); p++)
-		{
-			path_str += std::to_string(paths[i][p]);
-			if( p < paths[i].size() - 1)
-			{
-				path_str += " -> ";
-			}
-		}
+		toString(paths[i], path_str);
 		printf("%s\n", path_str.c_str());
+	}
+}
+
+void PathPlanningBase::toString(std::vector<int> &path, std::string &str)
+{
+	for(int p = 0; p < path.size(); p++)
+	{
+		str += std::to_string(path[p]);
+		if( p < path.size() - 1)
+		{
+			str += " -> ";
+		}
 	}
 }
 

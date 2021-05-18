@@ -23,60 +23,70 @@ void PathPlanningBFS::getAllPaths(std::vector<std::vector<int>> &paths, int star
 		return;
 	}
 
-	if(start > end)
+	//a queue for internal storage of the paths
+	std::queue<std::vector<int>> q;
+
+	//store the current path
+	std::vector<int> path;
+	//put the start position into the first path
+	path.push_back(start);
+	q.push(path);
+
+	//while the queue is not empty
+	while(!q.empty())
 	{
-		std::swap(start, end);
-	}
+		//get a copy of the front path
+		path = q.front();
+		//get rid of the front path in the internal container
+		q.pop();
 
-	int r_lb = 0;
-	int r_hb = 0;
-	int c_lb = 0;
-	int c_hb = 0;
-	auto start_cell = getBoundaries(start, r_lb, r_hb, c_lb, c_hb);
+		//get the last element of the current path
+		int last = path[path.size() - 1];
 
-	std::queue<int> list;
-	list.push(start);
-
-
-	bfs(path, visited, start, end);
-
-}
-
-void PathPlanningBFS::bfs(std::vector<int> &path, std::unordered_set<int> &visited, int idx, int end)
-{
-	//already visited
-	if(visited.find(idx) != visited.end() || grid_.data_[idx] == 0)
-	{
-		return;
-	}
-
-	//destination is reached
-	if(idx == end)
-	{
-		path.push_back(idx);
-		return;
-	}
-
-	visited.insert(idx);
-	path.push_back(idx);
-
-	int r_l = 0;
-	int r_h = 0;
-	int c_l = 0;
-	int c_h = 0;
-	auto cell = getBoundaries(idx, r_l, r_h, c_l, c_h);
-
-	for(int r = r_l; r <= r_h; r++)
-	{
-		for(int c = c_l; c <= c_h; c++)
+		//see if the destination is reached
+		if(last == end)
 		{
-			bfs(path, visited, grid_.getGlobalIndex(r,c),end);
-			if(visited.find(end) != visited.end())
+			paths.push_back(path);
+		}
+
+		//figure out the connected graph to the last item of the path
+		int rl, rh, cl, ch = 0;
+		auto last_cell = getBoundaries(last, rl, rh, cl, ch);
+
+		for(int r = rl; r <= rh; r++)
+		{
+			for(int c = cl; c <= ch; c++)
 			{
-				path.push_back(idx);
+				int idx = grid_.getGlobalIndex(r, c);
+				//skip if the path is blocked
+				if(grid_.data_[idx] == 0)
+				{
+					continue;
+				}
+
+				//see if the path already visited this item
+				if(!isVisited(path, idx))
+				{
+					//create a new path
+					std::vector<int> new_path(path);
+					//add the current index to the path
+					new_path.push_back(idx);
+					//store the path
+					q.push(new_path);
+				}
 			}
 		}
 	}
-
-
+}
+bool PathPlanningBFS::isVisited(const std::vector<int> &path, int key)
+{
+	std::vector<int>::const_iterator it = path.cbegin();
+	for(; it != path.cend(); ++it)
+	{
+		if(*it == key)
+		{
+			return true;
+		}
+	}
+	return false;
 }

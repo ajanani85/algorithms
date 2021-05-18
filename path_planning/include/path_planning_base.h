@@ -54,6 +54,8 @@ public:
 
 	void print(std::vector<std::vector<int>> &paths);
 
+	void toString(std::vector<int> &path, std::string &str);
+
 	Grid grid_;
 
 	virtual void getAllPaths(std::vector<std::vector<int>> &paths, int start, int end) = 0;
