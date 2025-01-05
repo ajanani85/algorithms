@@ -7,3 +7,4 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 add_executable(non_overlapping_intervals src/non_overlapping_intervals.cpp)
 add_executable(maximum_overlapping_intervals src/maximum_overlapping_intervals.cpp)
+add_executable(minimum_jumps src/minimum_jumps.cpp)
