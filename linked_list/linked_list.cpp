@@ -12,13 +12,17 @@ struct LinkedList
 	}
 	LinkedList(LinkedList *item)
 	{
+		if(item == nullptr)
+		{
+			return;
+		}
 		data = item->data;
 		next = item->next;
 		size = item->size;
 	}
 	int data;
 	LinkedList *next;
-	size_t size;
+	int size = 0;
 };
 
 /**
@@ -26,31 +30,25 @@ struct LinkedList
  */
 void reverse(LinkedList **head)
 {
+
 	if(*head == NULL)
 	{
 		return;
 	}
 
 	LinkedList *current = *head;
-	LinkedList *prev = NULL, *next = NULL;
-	/*
-	 * 1 2 3 4
-	 * 2 1 3 4
-	 * 3 2 1 4
-	 * 4 3 2 1
-	 */
+	LinkedList *prev = nullptr;
+	LinkedList *iterator;
 
-	while(current != NULL)
+	while(current)
 	{
-		//store the next position
-		next = current->next;
+		iterator = current->next;
 
-		//reverse the order
 		current->next = prev;
 
-		//update the pointers
 		prev = current;
-		current = next;
+
+		current = iterator;
 	}
 
 	*head = prev;
@@ -86,40 +84,49 @@ void deleteAt(LinkedList **head, int index)
 	prev->next = current->next;
 }
 
-void deleteWithVal(LinkedList **head, int value)
+
+/*
+	Delete a node without head
+*/
+void deleteNode(LinkedList **node)
 {
-	if(*head == NULL)
+	if(*node == NULL)
 	{
 		return;
 	}
 
-	LinkedList* current = *head;
-	LinkedList *prev = *head;
-	while(current != NULL)
+	LinkedList *temp = (*node)->next;
+
+	if(temp == NULL)
 	{
+		node = NULL;
+	}
+	else
+	{
+		(*node)->data = temp->data;
+		(*node)->next = temp->next;
+	}
+}
+
+void deleteWithVal(LinkedList **head, int value)
+{
+	if (*head == NULL)
+	{
+		return;
+	}
+	LinkedList *current = *head;
+	while(current)
+	{
+		//there might be more than one copy with the same value
 		if(current->data == value)
-		{
-			//when at the beginning
-			if(prev == current)
-			{
-				*head = current->next;
-
-			}
-			else
-			{
-				//general case
-				prev->next = current->next;
-				//increment the cursor
-				current = prev->next;
-				continue;
-			}
-
+		{	
+			deleteNode(&current);
+			(*head)->size--;
 		}
-		prev = current;
-		current = current->next;
-
-
-
+		else
+		{
+			current = current->next;
+		}
 	}
 }
 
@@ -173,6 +180,7 @@ void insert(LinkedList **head, int data)
 
 	LinkedList *current = *head;
 	LinkedList *prev = current;
+
 	while(current->data < data)
 	{
 		prev = current;
@@ -182,21 +190,22 @@ void insert(LinkedList **head, int data)
 			break;
 		}
 	}
-
-	LinkedList *item = new LinkedList(data);
-	//normal case
-	if(prev != current)
+	//when we get here, one of the following conditions are true;
+	//1. current and prev are both the same: the edge case that happens at the beginning of the array
+	LinkedList *temp = new LinkedList(data);
+	if(current == prev)
 	{
-		prev->next = item;
-		item->next = current;
-		(*head)->size +=1;
-		return;
+		temp->next = current;
+		*head = temp;
 	}
+	//2. when current and previous are not the same
+	else
+	{
+		temp->next = current;
+		prev->next = temp;
+	}	
+	(*head)->size++;
 
-	//where the place is the head (when prev = current)
-	LinkedList *tmp = new LinkedList(*head);
-	item->next = tmp;
-	*head = item;
 }
 
 /**
@@ -209,15 +218,11 @@ void push_front(LinkedList **head, int data)
 		*head = new LinkedList(data);
 		return;
 	}
+	LinkedList *new_head = new LinkedList(data);
+	new_head->size += (*head)->size;
 
-	LinkedList *tmp = new LinkedList(*head);
-
-	LinkedList *current = new LinkedList(data);
-	current->next = tmp;
-	current->size = (*head)->size + 1;
-
-	*head = current;
-	//(*head)->size++;
+	new_head->next = *head;
+	*head = new_head;
 }
 
 void push_back(LinkedList **head, int data)
@@ -227,35 +232,68 @@ void push_back(LinkedList **head, int data)
 		*head = new LinkedList(data);
 		return;
 	}
-
-	//Move the cursor to the end of the array
-	LinkedList *current = *head;
+	LinkedList* current = *head;
 	while(current->next != NULL)
 	{
 		current = current->next;
 	}
-
-	//create a new item and add it the current cursor position
-	LinkedList *item = new LinkedList(data);
-	current->next = item;
+	//when here, the next item is null
+	current->next = new LinkedList(data);
 	(*head)->size++;
 }
 
 void print(LinkedList *head)
 {
-	if (head == NULL)
+	if(!head)
 	{
 		return;
 	}
 
 	LinkedList *current = head;
-	int id = 0;
-	while (current != NULL)
+	cout << "size: " << current->size << endl;
+	while(current)
 	{
-		cout << "item " << id << ": " << current->data << endl;
+		cout << current->data;
 		current = current->next;
-		id++;
+		if(current == NULL)
+		{
+			cout << endl;
+		}
+		else
+		{
+			cout << "->";
+		}
 	}
+}
+
+void deleteKthElementFromEnd(LinkedList **head, int k)
+{
+	if(*head == NULL)
+	{
+		return;
+	}
+
+	LinkedList *slow = *head;
+	LinkedList *fast = *head;
+
+	//move the fast pointer K element forward
+	for(int i = 0; i <= k; i++)
+	{
+		fast = fast->next;
+		if(fast == NULL)
+		{
+			return;
+		}
+	}
+
+	//move both slow and fast pointer until fast reaches the end
+	while(fast != NULL)
+	{
+		fast = fast->next;
+		slow = slow->next;
+	}
+
+	deleteNode(&slow->next);
 }
 
 int main(int argc, char **argv) {
@@ -265,6 +303,13 @@ int main(int argc, char **argv) {
 
 	for(int i = 0; i < A.size(); i++)
 	{
+		//push to the back of the list (maintaining the order)
+		//push_back(&head, A[i]);
+
+		//push to the front of the list (order is reveresed)
+		//push_front(&head, A[i]);
+
+		//sort while inserting
 		insert(&head, A[i]);
 	}
 
@@ -273,5 +318,14 @@ int main(int argc, char **argv) {
 	reverse(&head);
 
 	print(head);
+
+	deleteWithVal(&head, 9);
+
+	print(head);
+
+	deleteKthElementFromEnd(&head, 3);
+
+	print(head);
+	
 	return 0;
 }
