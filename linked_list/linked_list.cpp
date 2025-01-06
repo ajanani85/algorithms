@@ -170,7 +170,7 @@ void insert(LinkedList **head, int data, int index)
 /**
  * insert an item in order
  */
-void insert(LinkedList **head, int data)
+void insert(LinkedList **head, int data, bool exclusive = false)
 {
 	if(*head == NULL)
 	{
@@ -190,6 +190,15 @@ void insert(LinkedList **head, int data)
 			break;
 		}
 	}
+
+	if(exclusive)
+	{
+		if(current && current->data == data)
+		{
+			return;
+		}
+	}
+
 	//when we get here, one of the following conditions are true;
 	//1. current and prev are both the same: the edge case that happens at the beginning of the array
 	LinkedList *temp = new LinkedList(data);
@@ -250,7 +259,6 @@ void print(LinkedList *head)
 	}
 
 	LinkedList *current = head;
-	cout << "size: " << current->size << endl;
 	while(current)
 	{
 		cout << current->data;
@@ -266,8 +274,67 @@ void print(LinkedList *head)
 	}
 }
 
+void makeItCycleAtKthElement(LinkedList **head, int k)
+{
+	if(*head == NULL)
+	{
+		return;
+	}
+
+	LinkedList *slow = *head;
+	
+	//iterate to the Kth element
+	for(int i = 0; i <= k; i++)
+	{
+		slow = slow->next;
+		if(slow == NULL)
+		{
+			return;
+		}
+	}
+
+	//pass the pointer to the fast and iterate that to the end
+	LinkedList *fast = slow;
+	while(fast->next != NULL)
+	{
+		fast = fast->next;
+	}
+
+	fast->next = slow;
+}
+
+/*
+	Floyd's Cycle Detection Algorithm, also known as the Tortoise and Hare Algorithm.
+*/
+bool isThereCycle(LinkedList **head)
+{
+
+	if(*head == NULL || (*head)->next == NULL)
+	{
+		return false;
+	}
+
+	LinkedList *slow = *head;
+	LinkedList *fast = (*head)->next;
+
+	while(fast && fast->next)
+	{
+
+		slow = slow->next;
+		fast = fast->next->next;
+		if(slow == fast)
+		{
+			return true;
+		}
+
+	}
+
+	return false; 
+}
+
 void deleteKthElementFromEnd(LinkedList **head, int k)
 {
+
 	if(*head == NULL)
 	{
 		return;
@@ -310,10 +377,13 @@ int main(int argc, char **argv) {
 		//push_front(&head, A[i]);
 
 		//sort while inserting
-		insert(&head, A[i]);
+		//insert(&head, A[i]);
+
+		//insert with one copy just like set data structure
+		insert(&head, A[i], true);
 	}
 
-	insert(&head, 200);
+	insert(&head, 200, true);
 
 	reverse(&head);
 
@@ -326,6 +396,12 @@ int main(int argc, char **argv) {
 	deleteKthElementFromEnd(&head, 3);
 
 	print(head);
+
+	cout << (isThereCycle(&head) ? "true" : "false") << endl;
+
+	makeItCycleAtKthElement(&head, 2);
+
+	cout << (isThereCycle(&head) ? "true" : "false") << endl;
 	
 	return 0;
 }
