@@ -363,10 +363,59 @@ void deleteKthElementFromEnd(LinkedList **head, int k)
 	deleteNode(&slow->next);
 }
 
+void merge(LinkedList **l1, LinkedList **l2)
+{
+	if(*l1 == NULL)
+	{
+		*l1 = *l2;
+		return;
+	}
+	if(*l2 == NULL)
+	{
+		return;
+	}
+
+	LinkedList *t1 = *l1;
+	LinkedList *t2 = *l2;
+	LinkedList *prev = NULL;
+	while(t1 != NULL && t2 != NULL)
+	{
+		if(t2->data >= t1->data)
+		{
+			prev = t1;
+			t1 = t1->next;
+		}
+		else
+		{
+			if(prev)
+			{
+				prev->next = t2;
+			}
+			prev= t2;
+			t2 = t2->next;
+			prev->next = t1;
+			if(t1 == *l1)
+			{
+				*l1 = prev;
+			}
+		}
+	}
+	if (t2 != nullptr) 
+	{
+		prev->next = t2;
+	}
+}
+
 int main(int argc, char **argv) {
 
 	vector<int> A = {9, 3, 5, 7, 9, -10, 2, 9, 9, 8};
+	vector<int> B = {-200,1,2,3,4,5,6,7,8,9,10};
 	LinkedList *head = NULL;
+	LinkedList *head_b = NULL;
+	for(int i = 0; i < B.size(); i++)
+	{
+		insert(&head_b, B[i], true);
+	}
 
 	for(int i = 0; i < A.size(); i++)
 	{
@@ -385,9 +434,9 @@ int main(int argc, char **argv) {
 
 	insert(&head, 200, true);
 
-	reverse(&head);
+	//reverse(&head);
 
-	print(head);
+	//print(head);
 
 	deleteWithVal(&head, 9);
 
@@ -399,9 +448,20 @@ int main(int argc, char **argv) {
 
 	cout << (isThereCycle(&head) ? "true" : "false") << endl;
 
-	makeItCycleAtKthElement(&head, 2);
+	//makeItCycleAtKthElement(&head, 2);
 
-	cout << (isThereCycle(&head) ? "true" : "false") << endl;
+	//cout << (isThereCycle(&head) ? "true" : "false") << endl;
+
+	cout << "MERGING TEST INPUT: " << endl;
+
+	print(head);
+	print(head_b);
+
+
+	cout << "MERGING TEST OUTPUT: " << endl;
+	merge(&head, &head_b);
+	print(head);
+
 	
 	return 0;
 }
