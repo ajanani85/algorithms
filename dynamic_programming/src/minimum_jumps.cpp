@@ -20,7 +20,6 @@ int minJumpsDP(vector<int> arr)
 
 }
 
-
 int main() {
     vector<int> arr = {2, 3, 1, 1, 2, 4, 2, 0, 1, 1};
     int result = minJumpsDP(arr);

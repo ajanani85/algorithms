@@ -266,6 +266,55 @@ void cluster(const std::vector<std::vector<int>> &src, std::vector<std::vector<i
 	printArr2d(res);
 }
 
+/*
+	You are given an m x n integer matrix matrix with the following two properties:
+
+    Each row is sorted in non-decreasing order.
+    The first integer of each row is greater than the last integer of the previous row.
+
+	Given an integer target, return true if target is in matrix or false otherwise.
+
+	You must write a solution in O(log(m * n)) time complexity.
+ */
+
+bool find(vector<vector<int>> &arr, int target)
+{
+	if(arr.size() == 0)
+	{
+		return false;
+	}
+	//a sorted 2D array is a sorted 1D array organized in rows and cols
+	int rows = arr.size();
+	int cols = arr[0].size();
+
+	int left= 0;
+	int right = (rows * cols) - 1;
+
+	//perform binary search
+	while(left <= right)
+	{
+		int mid = left + (right - left)/2;
+
+		int row = mid / cols;
+		int col = mid % cols;
+		if(arr[row][col] == target)
+		{
+			return true;
+		}
+		else if (arr[row][col] < target)
+		{
+			left = mid + 1;
+		}
+		else
+		{
+			right = mid - 1;
+		}
+	}
+
+	return false;
+	
+}
+
 
 int main(int argc, char **argv) {
 	/*int **arr = NULL;
@@ -286,7 +335,7 @@ int main(int argc, char **argv) {
 		a.resize(arr[0].size());
 	}
 
-	cluster(arr, arr_labeled, 1);
+	//cluster(arr, arr_labeled, 1);
 	//printArr2d(arr_labeled);
 	/*create(&arr, row, col, default_val);
 
@@ -297,6 +346,13 @@ int main(int argc, char **argv) {
 	pathfinder(arr, row, col, 0, (row*col)-1);
 
 	print(arr, row, col);*/
+
+
+	vector<vector<int>> matrix = {{1,3,5,7},{10,11,16,20},{23,30,34,60}};
+	int target = 3;
+	bool result = find(matrix, target);
+	printArr2d(matrix);
+	cout << (result ? "FOUND " : "NOT FOUND ") << target << " in matrix." << endl;
 
 	return 0;
 }

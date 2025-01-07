@@ -406,6 +406,61 @@ void merge(LinkedList **l1, LinkedList **l2)
 	}
 }
 
+LinkedList *toList(const vector<int> &arr)
+{
+	if (arr.size() == 0)
+	{
+		return nullptr;
+	}
+
+	LinkedList *head = new LinkedList(arr[0]);
+	LinkedList *it = head;
+	for(int i = 1; i < arr.size(); i++)
+	{
+		it->next = new LinkedList(arr[i]);
+		it = it->next;
+	}
+	return head;
+}	
+
+
+/*
+	You are given two non-empty linked lists representing two non-negative integers. 
+	The digits are stored in reverse order, and each of their nodes contains a single digit. 
+	Add the two numbers and return the sum as a linked list.
+	You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+*/
+LinkedList *sum(LinkedList **head1, LinkedList **head2)
+{
+	LinkedList *dummy = new LinkedList(0);
+	LinkedList *it = dummy;
+
+	LinkedList *l1 = *head1;
+	LinkedList *l2 = *head2;
+	int carry = 0;
+
+	while(l1 || l2 || carry != 0)
+	{
+		int digit1 = (l1) ? l1->data : 0;
+		int digit2 = (l2) ? l2->data : 0;
+
+		int sum = digit1 + digit2 + carry;
+		carry = sum / 10;
+		sum = sum % 10;
+
+		LinkedList *item = new LinkedList(sum);
+		it->next = item;
+		
+		it = it->next;
+		l1 = (l1) ? l1->next : nullptr;
+		l2 = (l2) ? l2->next : nullptr;
+	}
+
+	LinkedList *result = dummy->next;
+	delete dummy;
+	return result;
+}
+
 int main(int argc, char **argv) {
 
 	vector<int> A = {9, 3, 5, 7, 9, -10, 2, 9, 9, 8};
@@ -462,6 +517,18 @@ int main(int argc, char **argv) {
 	merge(&head, &head_b);
 	print(head);
 
-	
+
+	vector<int> C = {2,4,3};
+	vector<int> D = {5,6,4};
+
+	LinkedList *head_c = toList(C);
+	LinkedList *head_d = toList(D);
+
+	print(head_c);
+	print(head_d);
+
+	LinkedList *sum_cd = sum(&head_c, &head_d);
+	print(sum_cd);
+		
 	return 0;
 }
