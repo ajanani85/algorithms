@@ -6,3 +6,5 @@ add_executable(2d_array src/2d_array.cpp)
 
 
 add_executable(dfs src/dfs.cpp)
+
+add_executable(djikstra_algorithm src/djikstra_algorithm.cpp)
